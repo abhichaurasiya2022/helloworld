@@ -3,9 +3,9 @@ pipeline {
     agent any
     
     environment {
-        // Replace with your actual SonarQube IP address from Terraform output
-        SONAR_HOST = 'http://34.233.71.226:9000'
-        SONAR_TOKEN = credentials('sonar-token')
+      
+        SONAR_HOST = 'http://3.80.75.38:9000/'
+        SONAR_TOKEN = 'sqa_525b043838540148ab22924325465e382fe48e8f'
     }
     
     tools {
@@ -17,7 +17,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Replace with your actual repository URL
-                git 'https://github.com/your-username/your-python-repo.git'
+                git 'https://github.com/abhichaurasiya2022/helloworld.git'
             }
         }
         
