@@ -1,31 +1,28 @@
-// Save this as 'Jenkinsfile' in your repository
 pipeline {
     agent any
     
     environment {
-      
         SONAR_HOST = 'http://3.80.75.38:9000/'
         SONAR_TOKEN = 'sqa_525b043838540148ab22924325465e382fe48e8f'
     }
-    
-    tools {
-        // Add this if you're using specific Python version
-        python 'Python3'
-    }
-    
+
     stages {
         stage('Checkout') {
             steps {
-                // Replace with your actual repository URL
                 git 'https://github.com/abhichaurasiya2022/helloworld.git'
             }
         }
         
-        stage('Install Dependencies') {
+        stage('Install Python and Dependencies') {
             steps {
                 sh '''
-                    python -m pip install --upgrade pip
-                    pip install -r requirements.txt
+                    # Ensure Python 3 is installed
+                    sudo apt-get update
+                    sudo apt-get install -y python3 python3-pip
+                    
+                    # Upgrade pip and install dependencies
+                    python3 -m pip install --upgrade pip
+                    pip3 install -r requirements.txt
                 '''
             }
         }
@@ -61,7 +58,6 @@ pipeline {
     
     post {
         always {
-            // Clean workspace after build
             cleanWs()
         }
     }
